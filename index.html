@@ -1,2 +1,85 @@
 # UnnatiConnect-
 Unnati Coaching Classes Management App 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unnati Connect</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172554}
+header{background:#172554;color:white;padding:24px 18px;border-radius:0 0 22px 22px}
+header h1{margin:0;font-size:25px}
+header p{margin:7px 0 0;color:#cbd5e1}
+main{padding:18px;max-width:650px;margin:auto}
+h2{font-size:19px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:white;padding:18px;border-radius:14px;box-shadow:0 2px 8px #0000000d}
+.card strong{display:block;font-size:23px;color:#2563eb;margin-top:8px}
+.panel{background:white;padding:18px;border-radius:14px;margin-top:18px}
+button{background:#1d4ed8;color:white;border:0;padding:12px 16px;border-radius:9px;font-weight:bold;cursor:pointer}
+input,select{width:100%;padding:12px;margin:7px 0 14px;border:1px solid #cbd5e1;border-radius:8px}
+label{font-size:14px;font-weight:bold}
+.student{padding:12px 0;border-bottom:1px solid #e2e8f0}
+small{color:#64748b}
+</style>
+</head>
+<body>
+<header>
+<h1>Unnati Connect</h1>
+<p>Unnati Coaching Classes • Management</p>
+</header>
+<main>
+<h2>Dashboard</h2>
+<div class="grid">
+<div class="card">Total Students<strong id="total">0</strong></div>
+<div class="card">Fees Collected<strong>₹0</strong></div>
+<div class="card">Present Today<strong>0</strong></div>
+<div class="card">Pending Fees<strong>₹0</strong></div>
+</div>
+
+<div class="panel">
+<h2>Register Student</h2>
+<form id="studentForm">
+<label>Student Name</label>
+<input id="name" required placeholder="Enter student name">
+<label>Parent Mobile Number</label>
+<input id="phone" required type="tel" pattern="[0-9]{10}" placeholder="10-digit mobile number">
+<label>Batch</label>
+<select id="batch">
+<option>Morning Batch</option>
+<option>Afternoon Batch</option>
+<option>Evening Batch</option>
+</select>
+<label>Monthly Fees (₹)</label>
+<input id="fees" type="number" min="0" required placeholder="Enter monthly fees">
+<button type="submit">Add Student</button>
+</form>
+</div>
+
+<div class="panel">
+<h2>Student List</h2>
+<div id="students"><small>No students registered yet.</small></div>
+</div>
+</main>
+<script>
+let students=[];
+document.getElementById("studentForm").addEventListener("submit",function(e){
+e.preventDefault();
+const student={
+name:document.getElementById("name").value,
+phone:document.getElementById("phone").value,
+batch:document.getElementById("batch").value,
+fees:document.getElementById("fees").value
+};
+students.push(student);
+document.getElementById("total").textContent=students.length;
+document.getElementById("students").innerHTML=students.map(s=>
+'<div class="student"><b>'+s.name.replace(/[&<>"']/g,'')+'</b><br><small>'+s.batch+' • ₹'+s.fees+' • '+s.phone+'</small></div>'
+).join("");
+this.reset();
+});
+</script>
+</body>
+</html>
